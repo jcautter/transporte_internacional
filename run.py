@@ -3,6 +3,7 @@ import sys
 import numpy as np
 from datetime import datetime, date
 import os
+import shutil
 import pandas as pd
 import pandas.io.sql as psql
 import numpy as np
@@ -306,13 +307,16 @@ def PROCESSA(opcao):
     path_log = path_add + "/cargalog.txt"
 
     log = log_setup(path_log)
-    log_print(f'Start process >> opcao: {opcao}')
+    log_print(log, f'Starting process >> opcao: {opcao}')
     
     control_tables = setup_control_tables()
     
     # load new data
+    log_print(log, 'Load data into control tables')
     load_new_data(control_tables['tables'])
     
     # execution of each process
     for table in control_tables['tables']:
         process(conn, cur, log, control_tables[table])
+    log_print(log, 'Finishing process')
+    shutil.copyfile(path_log, path_add + '/cargalog_' + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.txt')
