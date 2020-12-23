@@ -13,11 +13,11 @@ import numpy as np
 def connection_setup():
     ## Setup Database Connection
     conn = psycopg2.connect(
-        host='172.17.0.2',
-        database='tim_bpo_hom',
-        user='tim_bpo_cn',
-        password='tim_bpo_cn',
-        port='5433'
+        host='host',
+        database='database',
+        user='user',
+        password='passaword',
+        port='port'
     )
     cur = conn.cursor()
     return conn, cur
@@ -38,7 +38,7 @@ def setup_control_tables():
             'whs_controle_trafego_internacional_com_gp',
             'whs_cont_trafego_internacional_sem_gp',
             'whs_cont_trafego_internacional_com_gp',
-        ]
+        ],
         'whs_controle_trafego_internacional_sem_gp': {
             'name': 'Sem GP Inicial e Sem Final',
             'table': 'whs_controle_trafego_internacional_sem_gp',
